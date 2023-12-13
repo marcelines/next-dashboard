@@ -1,6 +1,10 @@
-import '@/app/ui/global.css';
-import { inter } from '@/app/ui/fonts';
-import { Metadata } from 'next';
+import '@/app/ui/global.css'
+
+import { inter } from '@/app/ui/fonts'
+
+import { NextTamaguiProvider } from './tamagui-provider'
+
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: {
@@ -9,16 +13,18 @@ export const metadata: Metadata = {
   },
   description: 'The official Next.js Learn Dashboard built with App Router.',
   metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
-};
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body className={`${inter.className} antialiased`}>
+        <NextTamaguiProvider>{children}</NextTamaguiProvider>
+      </body>
     </html>
-  );
+  )
 }

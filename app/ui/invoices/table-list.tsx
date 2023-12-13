@@ -1,82 +1,88 @@
-'use client';
+'use client'
 
-import { ChangeEvent, MouseEvent, useState } from 'react';
-import Image from 'next/image';
-import { UpdateInvoice, DeleteInvoice } from '@/app/ui/invoices/buttons';
-import InvoiceStatus from '@/app/ui/invoices/status';
-import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
-import { Invoice } from './table';
-import clsx from 'clsx';
+import { useState } from 'react'
+
+// import { Avatar } from '@status-im/components'
+import clsx from 'clsx'
+import Image from 'next/image'
+import { Stack } from 'tamagui'
+
+import { formatCurrency, formatDateToLocal } from '@/app/lib/utils'
+import { DeleteInvoice, UpdateInvoice } from '@/app/ui/invoices/buttons'
+import InvoiceStatus from '@/app/ui/invoices/status'
+
+import type { Invoice } from './table'
+import type { MouseEvent } from 'react'
 
 export const InvoicesList = ({ invoices }: { invoices: Invoice[] }) => {
-  const [selected, setSelected] = useState<string[]>([]);
-  const [firstSelected, setFirstSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string[]>([])
+  const [firstSelected, setFirstSelected] = useState<string | null>(null)
 
   const handleSelect = (id: string, event: MouseEvent<HTMLInputElement>) => {
-    let newSelected = [...selected];
+    let newSelected = [...selected]
 
     if (event.shiftKey && firstSelected) {
-      const start = invoices.findIndex(
-        (invoice) => invoice.id === firstSelected,
-      );
-      const end = invoices.findIndex((invoice) => invoice.id === id);
+      const start = invoices.findIndex(invoice => invoice.id === firstSelected)
+      const end = invoices.findIndex(invoice => invoice.id === id)
       const ids = invoices
         .slice(Math.min(start, end), Math.max(start, end) + 1)
-        .map((invoice) => invoice.id);
-      newSelected = ids;
+        .map(invoice => invoice.id)
+      newSelected = ids
     } else {
       if (newSelected.includes(id)) {
-        newSelected = newSelected.filter((item) => item !== id);
+        newSelected = newSelected.filter(item => item !== id)
       } else {
-        newSelected = [...newSelected, id];
-        setFirstSelected(id); // Set the first selected item
+        newSelected = [...newSelected, id]
+        setFirstSelected(id) // Set the first selected item
       }
     }
 
-    setSelected(newSelected);
-  };
+    setSelected(newSelected)
+  }
 
   const handleSelectAll = () => {
     if (selected.length === invoices.length) {
-      setSelected([]);
+      setSelected([])
     } else {
-      setSelected(invoices.map((invoice) => invoice.id));
+      setSelected(invoices.map(invoice => invoice.id))
     }
-  };
+  }
 
-  const isSelected = (id: string) => selected.includes(id);
+  const isSelected = (id: string) => selected.includes(id)
 
-  console.log(selected);
+  console.log(selected)
 
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
-        <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
+        <div className="rounded-lg bg-neutral-50 p-2 md:pt-0">
           <div className="md:hidden">
-            {invoices?.map((invoice) => (
+            {invoices?.map(invoice => (
               <div
                 key={invoice.id}
-                className="mb-2 w-full rounded-md bg-white p-4"
+                className="mb-2 w-full rounded-md bg-white-100 p-4"
               >
                 <div className="flex items-center justify-between border-b pb-4">
                   <div>
                     <div className="mb-2 flex items-center">
+                      <Stack bg="neutral-20" height={32} width={32} />
+                      {/* 
                       <Image
                         src={invoice.image_url}
                         className="mr-2 rounded-full"
                         width={28}
                         height={28}
                         alt={`${invoice.name}'s profile picture`}
-                      />
+                      /> */}
                       <p>{invoice.name}</p>
                     </div>
-                    <p className="text-sm text-gray-500">{invoice.email}</p>
+                    <p className="text-15 text-neutral-50">{invoice.email}</p>
                   </div>
                   <InvoiceStatus status={invoice.status} />
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
-                    <p className="text-xl font-medium">
+                    <p className="text-19 font-medium">
                       {formatCurrency(invoice.amount)}
                     </p>
                     <p>{formatDateToLocal(invoice.date)}</p>
@@ -89,8 +95,8 @@ export const InvoicesList = ({ invoices }: { invoices: Invoice[] }) => {
               </div>
             ))}
           </div>
-          <table className="hidden min-w-full text-gray-900 md:table">
-            <thead className="rounded-lg text-left text-sm font-normal">
+          <table className="hidden min-w-full text-neutral-80 md:table">
+            <thead className="rounded-lg text-left text-15">
               <tr>
                 <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
                   Customer
@@ -115,25 +121,34 @@ export const InvoicesList = ({ invoices }: { invoices: Invoice[] }) => {
                     <input
                       id="default-checkbox"
                       type="checkbox"
-                      className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
+                      className="h-4 w-4 rounded border-neutral-40 bg-neutral-60 text-customisation-blue-50 focus:ring-2 focus:ring-customisation-blue-50 dark:border-neutral-50 dark:bg-neutral-70 dark:ring-offset-blur-neutral-90/70 dark:focus:ring-customisation-blue-50"
                       onChange={handleSelectAll}
                       checked={selected.length === invoices.length}
+                      readOnly
                     />
                   </div>
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white">
-              {invoices?.map((invoice) => (
+            <tbody className="bg-white-100">
+              {invoices?.map(invoice => (
                 <tr
                   key={invoice.id}
                   className={clsx([
-                    'w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg',
-                    isSelected(invoice.id) && 'bg-blue-50',
+                    'w-full border-b py-3 text-15 last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg',
+                    isSelected(invoice.id) && 'bg-customisation-blue-50',
                   ])}
                 >
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex items-center gap-3">
+                      <Stack bg="$neutral-10" height={32} width={32} />
+                      {/* <Avatar
+                        size={24}
+                        src={invoice.image_url}
+                        type="user"
+                        name=""
+                      /> */}
+
                       <Image
                         src={invoice.image_url}
                         className="rounded-full"
@@ -144,16 +159,14 @@ export const InvoicesList = ({ invoices }: { invoices: Invoice[] }) => {
                       <p>{invoice.name}</p>
                     </div>
                   </td>
-                  <td className="whitespace-nowrap px-3 py-3">
-                    {invoice.email}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-3">
+                  <td className="whitespace-nowrap p-3">{invoice.email}</td>
+                  <td className="whitespace-nowrap p-3">
                     {formatCurrency(invoice.amount)}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-3">
+                  <td className="whitespace-nowrap p-3">
                     {formatDateToLocal(invoice.date)}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-3">
+                  <td className="whitespace-nowrap p-3">
                     <InvoiceStatus status={invoice.status} />
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
@@ -167,9 +180,10 @@ export const InvoicesList = ({ invoices }: { invoices: Invoice[] }) => {
                       <input
                         id="default-checkbox"
                         type="checkbox"
-                        className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600"
-                        onClick={(event) => handleSelect(invoice.id, event)}
+                        className="h-4 w-4 rounded border-neutral-40 bg-neutral-60 text-customisation-blue-50 focus:ring-2 focus:ring-customisation-blue-50 dark:border-neutral-50 dark:bg-neutral-70 dark:ring-offset-blur-neutral-90/70 dark:focus:ring-customisation-blue-50"
+                        onClick={event => handleSelect(invoice.id, event)}
                         checked={isSelected(invoice.id)}
+                        readOnly
                       />
                     </div>
                   </td>
@@ -180,5 +194,5 @@ export const InvoicesList = ({ invoices }: { invoices: Invoice[] }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

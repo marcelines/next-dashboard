@@ -1,8 +1,9 @@
-import { generateYAxis } from '@/app/lib/utils';
-import { CalendarIcon } from '@heroicons/react/24/outline';
-import { lusitana } from '@/app/ui/fonts';
-import { Revenue } from '@/app/lib/definitions';
-import { fetchRevenue } from '@/app/lib/data';
+import { CalendarIcon } from '@heroicons/react/24/outline'
+
+import { fetchRevenue } from '@/app/lib/data'
+// import { Revenue } from '@/app/lib/definitions'
+import { generateYAxis } from '@/app/lib/utils'
+import { lusitana } from '@/app/ui/fonts'
 
 // This component is representational only.
 // For data visualization UI, check out:
@@ -11,52 +12,52 @@ import { fetchRevenue } from '@/app/lib/data';
 // https://airbnb.io/visx/
 
 export default async function RevenueChart() {
-  const chartHeight = 350;
+  const chartHeight = 350
   // NOTE: comment in this code when you get to this point in the course
-  const revenue = await fetchRevenue();
-  const { yAxisLabels, topLabel } = generateYAxis(revenue);
+  const revenue = await fetchRevenue()
+  const { yAxisLabels, topLabel } = generateYAxis(revenue)
 
   if (!revenue || revenue.length === 0) {
-    return <p className="mt-4 text-gray-400">No data available.</p>;
+    return <p className="text-gray-400 mt-4">No data available.</p>
   }
 
   return (
     <div className="w-full md:col-span-4">
-      <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
+      <h2 className={`${lusitana.className} text-xl md:text-2xl mb-4`}>
         Recent Revenue
       </h2>
       {/* NOTE: comment in this code when you get to this point in the course */}
 
-      <div className="rounded-xl bg-gray-50 p-4">
-        <div className="mt-0 grid grid-cols-12 items-end gap-2 rounded-md bg-white p-4 sm:grid-cols-13 md:gap-4">
+      <div className="bg-gray-50 rounded-xl p-4">
+        <div className="bg-white mt-0 grid grid-cols-12 items-end gap-2 rounded-md p-4 sm:grid-cols-13 md:gap-4">
           <div
-            className="mb-6 hidden flex-col justify-between text-sm text-gray-400 sm:flex"
+            className="text-sm text-gray-400 mb-6 hidden flex-col justify-between sm:flex"
             style={{ height: `${chartHeight}px` }}
           >
-            {yAxisLabels.map((label) => (
+            {yAxisLabels.map(label => (
               <p key={label}>{label}</p>
             ))}
           </div>
 
-          {revenue.map((month) => (
+          {revenue.map((month: any) => (
             <div key={month.month} className="flex flex-col items-center gap-2">
               <div
-                className="w-full rounded-md bg-blue-300"
+                className="bg-blue-300 w-full rounded-md"
                 style={{
                   height: `${(chartHeight / topLabel) * month.revenue}px`,
                 }}
               ></div>
-              <p className="-rotate-90 text-sm text-gray-400 sm:rotate-0">
+              <p className="text-sm text-gray-400 -rotate-90 sm:rotate-0">
                 {month.month}
               </p>
             </div>
           ))}
         </div>
         <div className="flex items-center pb-2 pt-6">
-          <CalendarIcon className="h-5 w-5 text-gray-500" />
-          <h3 className="ml-2 text-sm text-gray-500 ">Last 12 months</h3>
+          <CalendarIcon className="text-gray-500 h-5 w-5" />
+          <h3 className="text-sm text-gray-500 ml-2 ">Last 12 months</h3>
         </div>
       </div>
     </div>
-  );
+  )
 }
