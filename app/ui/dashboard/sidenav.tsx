@@ -12,7 +12,7 @@ export default function SideNav() {
         className="mb-2 flex h-20 items-end justify-start rounded-md bg-blur-neutral-5/70 p-4 md:h-40"
         href="/"
       >
-        <div className="w-32 text-white-100 md:w-40">
+        <div className="text-white-100 w-32 md:w-40">
           <AcmeLogo />
         </div>
       </Link>

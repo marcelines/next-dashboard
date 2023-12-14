@@ -18,20 +18,20 @@ export default async function RevenueChart() {
   const { yAxisLabels, topLabel } = generateYAxis(revenue)
 
   if (!revenue || revenue.length === 0) {
-    return <p className="text-gray-400 mt-4">No data available.</p>
+    return <p className="mt-4 text-neutral-50">No data available.</p>
   }
 
   return (
     <div className="w-full md:col-span-4">
-      <h2 className={`${lusitana.className} text-xl md:text-2xl mb-4`}>
+      <h2 className={`${lusitana.className} mb-4 text-27 md:text-48`}>
         Recent Revenue
       </h2>
       {/* NOTE: comment in this code when you get to this point in the course */}
 
-      <div className="bg-gray-50 rounded-xl p-4">
-        <div className="bg-white mt-0 grid grid-cols-12 items-end gap-2 rounded-md p-4 sm:grid-cols-13 md:gap-4">
+      <div className="rounded-xl bg-neutral-50 p-4">
+        <div className="mt-0 grid grid-cols-12 items-end gap-2 rounded-md bg-white-100 p-4 sm:grid-cols-13 md:gap-4">
           <div
-            className="text-sm text-gray-400 mb-6 hidden flex-col justify-between sm:flex"
+            className="mb-6 hidden flex-col justify-between text-15 text-neutral-50 sm:flex"
             style={{ height: `${chartHeight}px` }}
           >
             {yAxisLabels.map(label => (
@@ -39,23 +39,23 @@ export default async function RevenueChart() {
             ))}
           </div>
 
-          {revenue.map((month: any) => (
+          {revenue.map(month => (
             <div key={month.month} className="flex flex-col items-center gap-2">
               <div
-                className="bg-blue-300 w-full rounded-md"
+                className="w-full rounded-md bg-customisation-blue-50"
                 style={{
                   height: `${(chartHeight / topLabel) * month.revenue}px`,
                 }}
               ></div>
-              <p className="text-sm text-gray-400 -rotate-90 sm:rotate-0">
+              <p className="-rotate-90 text-15 text-neutral-40 sm:rotate-0">
                 {month.month}
               </p>
             </div>
           ))}
         </div>
         <div className="flex items-center pb-2 pt-6">
-          <CalendarIcon className="text-gray-500 h-5 w-5" />
-          <h3 className="text-sm text-gray-500 ml-2 ">Last 12 months</h3>
+          <CalendarIcon className="h-5 w-5 text-neutral-50" />
+          <h3 className="ml-2 text-15 text-neutral-50 ">Last 12 months</h3>
         </div>
       </div>
     </div>

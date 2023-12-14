@@ -14,7 +14,7 @@ import type {
   User,
 } from './definitions'
 
-export async function fetchRevenue() {
+export async function fetchRevenue(): Promise<Revenue[]> {
   // Add noStore() here prevent the response from being cached.
   noStore()
   // This is equivalent to in fetch(..., {cache: 'no-store'}).
