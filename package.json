@@ -10,26 +10,27 @@
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
     "seed": "node -r dotenv/config ./scripts/seed.js",
-    "start": "next start"
-  },
-  "resolutions": {
-    "@status-im/colors": "0.4.0",
-    "@status-im/icons": "0.6.0"
+    "start": "next start",
+    "postinstall": "patch-package",
+    "clean": "rm -rf .next/ node_modules/ .tamagui/ && yarn install"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
+    "@radix-ui/react-popover": "^1.0.7",
     "@status-im/colors": "^0.4.0",
     "@status-im/components": "^0.6.0",
     "@status-im/icons": "^0.6.0",
     "@tailwindcss/forms": "^0.5.7",
-    "@tamagui/core": "^1.79.11",
-    "@tamagui/next-theme": "^1.79.11",
-    "@tamagui/web": "^1.79.11",
+    "@tamagui/core": "^1.84.1",
+    "@tamagui/next-theme": "^1.84.1",
+    "@tamagui/web": "^1.84.1",
     "@types/node": "20.5.7",
     "@vercel/postgres": "^0.5.1",
     "autoprefixer": "10.4.15",
     "bcrypt": "^5.1.1",
+    "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "d3-time-format": "^4.1.0",
     "next": "^14.0.2",
     "next-auth": "^5.0.0-beta.4",
     "postcss": "8.4.31",
@@ -37,15 +38,16 @@
     "react-dom": "18.2.0",
     "react-native-web": "^0.19.9",
     "tailwindcss": "3.3.3",
-    "tamagui": "^1.79.11",
+    "tamagui": "^1.84.1",
     "typescript": "5.2.2",
     "use-debounce": "^10.0.0",
     "zod": "^3.22.2"
   },
   "devDependencies": {
     "@status-im/eslint-config": "^0.3.0",
-    "@tamagui/next-plugin": "^1.79.11",
+    "@tamagui/next-plugin": "^1.84.1",
     "@types/bcrypt": "^5.0.1",
+    "@types/d3-time-format": "^4.0.3",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.14",
     "@vercel/style-guide": "^5.0.1",
@@ -53,6 +55,7 @@
     "eslint": "^8.52.0",
     "eslint-config-next": "^14.0.0",
     "eslint-config-prettier": "9.0.0",
+    "patch-package": "^8.0.0",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "0.5.4"
   },
@@ -68,5 +71,5 @@
       "prettier --write"
     ]
   },
-  "packageManager": "pnpm@8.12.0"
+  "packageManager": "yarn@1.22.21"
 }

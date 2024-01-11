@@ -6,7 +6,6 @@ import { formatCurrency } from './utils'
 import type {
   CustomerField,
   CustomersTableType,
-  Invoice,
   InvoiceForm,
   InvoicesTable,
   LatestInvoiceRaw,
@@ -39,7 +38,7 @@ export async function fetchLatestInvoices() {
       ORDER BY invoices.date DESC
       LIMIT 5`
 
-    const latestInvoices = data.rows.map((invoice: Invoice) => ({
+    const latestInvoices = data.rows.map((invoice: LatestInvoiceRaw) => ({
       ...invoice,
       amount: formatCurrency(invoice.amount),
     }))
@@ -158,7 +157,7 @@ export async function fetchInvoiceById(id: string) {
       WHERE invoices.id = ${id};
     `
 
-    const invoice = data.rows.map((invoice: Invoice) => ({
+    const invoice = data.rows.map((invoice: InvoiceForm) => ({
       ...invoice,
       // Convert amount from cents to dollars
       amount: invoice.amount / 100,

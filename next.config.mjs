@@ -4,7 +4,6 @@ const { withTamagui } = tamaguiNextPlugin
 
 /** @type {import('next').NextConfig} */
 let config = {
-  // output: 'export',
   reactStrictMode: true,
   pageExtensions: ['ts', 'tsx'],
 
@@ -12,17 +11,24 @@ let config = {
   typescript: {
     ignoreBuildErrors: false,
   },
+  transpilePackages: ['react-native-web', '@status-im/components'],
   eslint: {
     ignoreDuringBuilds: true,
   },
 }
 
 const plugins = [
-  // withVercelToolbar(),
   withTamagui({
     config: './tamagui.config.ts',
-    appDir: true,
-    components: ['tamagui'],
+    components: ['@status-im/components'],
+    excludeReactNativeWebExports: [
+      'Switch',
+      'ProgressBar',
+      'Picker',
+      'CheckBox',
+      'Touchable',
+      'Modal',
+    ],
   }),
 ]
 

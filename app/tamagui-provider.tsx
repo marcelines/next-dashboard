@@ -1,6 +1,6 @@
 'use client'
 
-import { TamaguiProvider } from '@tamagui/core'
+import { Provider } from '@status-im/components'
 import { useServerInsertedHTML } from 'next/navigation'
 
 import config from '../tamagui.config'
@@ -23,5 +23,5 @@ export function NextTamaguiProvider({
     )
   })
 
-  return <TamaguiProvider config={config}>{children}</TamaguiProvider>
+  return <Provider>{children}</Provider>
 }

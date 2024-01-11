@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-// import { Avatar } from '@status-im/components'
+import { Tag } from '@status-im/components'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { Stack } from 'tamagui'
@@ -11,7 +11,12 @@ import { formatCurrency, formatDateToLocal } from '@/app/lib/utils'
 import { DeleteInvoice, UpdateInvoice } from '@/app/ui/invoices/buttons'
 import InvoiceStatus from '@/app/ui/invoices/status'
 
+import { DatePicker } from './date-picker'
+
 import type { Invoice } from './table'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import type { DateRange } from '@status-im/components'
 import type { MouseEvent } from 'react'
 
 export const InvoicesList = ({ invoices }: { invoices: Invoice[] }) => {
@@ -50,7 +55,11 @@ export const InvoicesList = ({ invoices }: { invoices: Invoice[] }) => {
 
   const isSelected = (id: string) => selected.includes(id)
 
-  console.log(selected)
+  const [selectedDates, setSelectedDates] = useState<DateRange>()
+
+  const onSelect = (selected?: DateRange) => {
+    setSelectedDates(selected)
+  }
 
   return (
     <div className="mt-6 flow-root">
@@ -65,15 +74,7 @@ export const InvoicesList = ({ invoices }: { invoices: Invoice[] }) => {
                 <div className="flex items-center justify-between border-b pb-4">
                   <div>
                     <div className="mb-2 flex items-center">
-                      <Stack bg="neutral-20" height={32} width={32} />
-                      {/* 
-                      <Image
-                        src={invoice.image_url}
-                        className="mr-2 rounded-full"
-                        width={28}
-                        height={28}
-                        alt={`${invoice.name}'s profile picture`}
-                      /> */}
+                      <Stack bg="" height={32} width={32} />
                       <p>{invoice.name}</p>
                     </div>
                     <p className="text-15 text-neutral-50">{invoice.email}</p>
@@ -141,13 +142,11 @@ export const InvoicesList = ({ invoices }: { invoices: Invoice[] }) => {
                 >
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex items-center gap-3">
-                      <Stack bg="$neutral-10" height={32} width={32} />
-                      {/* <Avatar
-                        size={24}
-                        src={invoice.image_url}
-                        type="user"
-                        name=""
-                      /> */}
+                      <DatePicker
+                        selected={selectedDates}
+                        onSelect={onSelect}
+                      />
+                      <Tag size={32} label="Magic" color="$danger-50" />
 
                       <Image
                         src={invoice.image_url}

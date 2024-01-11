@@ -1,4 +1,5 @@
 import '@/app/ui/global.css'
+import '@/app/ui/calendar.css'
 
 import { inter } from '@/app/ui/fonts'
 

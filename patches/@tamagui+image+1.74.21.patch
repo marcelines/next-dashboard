@@ -1,0 +1,13 @@
+diff --git a/node_modules/@tamagui/image/dist/jsx/Image.js b/node_modules/@tamagui/image/dist/jsx/Image.js
+index d754488..760da85 100644
+--- a/node_modules/@tamagui/image/dist/jsx/Image.js
++++ b/node_modules/@tamagui/image/dist/jsx/Image.js
+@@ -3,7 +3,7 @@ import {
+   styled,
+   usePropsAndStyle
+ } from "@tamagui/core";
+-import { forwardRef } from "react";
++import React, { forwardRef } from "react";
+ import { Image as RNImage } from "react-native";
+ const StyledImage = styled(RNImage, {
+   name: "Image",
