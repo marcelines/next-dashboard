@@ -3,10 +3,10 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "lint": "pnpm run lint:next",
+    "lint": "yarn lint:next",
     "lint:next": "next lint --dir=src --ext=.ts --ext=.tsx",
-    "lint:fix": "pnpm run lint:fix:next",
-    "lint:fix:next": "pnpm run lint:next --fix",
+    "lint:fix": "yarn lint lint:fix:next",
+    "lint:fix:next": "yarn lint:next --fix",
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
     "seed": "node -r dotenv/config ./scripts/seed.js",

@@ -22,10 +22,10 @@ export const auth = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
-      async authorize(credentials: User) {
+      async authorize(credentials: Record<string, unknown>) {
         const parsedCredentials = z
           .object({ email: z.string().email(), password: z.string().min(6) })
-          .safeParse(credentials)
+          .safeParse(credentials as User)
 
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data
